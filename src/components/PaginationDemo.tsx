@@ -21,6 +21,14 @@ export default function PaginationDemo() {
     // set up the pagination custom hook with arguments - amount of items, the user's selected items per page, the first page
     const pagination = usePagination(items.length, selectItemsPerPage, 1);
 
+    // create array with the number of pages needed for adding it to the demo
+    const pageButtons: number[] = [];
+
+    // loop to add to the buttons
+    for (let i=1; i <= pagination.totalPages; i++){
+        pageButtons.push(i);
+    }
+
     return (
         <div className="flex flex-col rounded-2xl w-fit h-fit px-10 py-8 bg-blue-50 border-2 border-blue-200 gap-4">
             <h2 className="text-2xl">Pagination Demo</h2>
@@ -52,8 +60,13 @@ export default function PaginationDemo() {
                 <button className="bg-blue-500 py-4 px-8 cursor-pointer disabled:text-gray-600 disabled:bg-gray-400 disabled:cursor-not-allowed" onClick={pagination.nextPage} disabled={!pagination.canNextPage}>Next {`>>`}</button>
             </div>
             {/* page number buttons */}
-            <div>
-
+            <div className="flex flex-row gap-2 justify-center">
+                {/* map from the page buttons array to add the buttons with different styling based on whether it's the active page or not*/}
+                {pageButtons.map((pageNumber) => (
+                    <button onClick={() => pagination.setPage(pageNumber)} className={`p-2 rounded-md cursor-pointer ${
+                        pageNumber === pagination.currentPage ? 'bg-blue-400' : 'bg-gray-300'
+                    }`}>{pageNumber}</button>
+                ))}
             </div>
         </div>
     )
