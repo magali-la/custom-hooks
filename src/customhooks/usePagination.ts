@@ -25,8 +25,8 @@ export default function usePagination(totalItems: number, itemsPerPage: number, 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
-    // how many items are actually on each page - modulo to get remainder which will be on the last page if it's not divisible
-    const itemsOnCurrentPage = totalItems % itemsPerPage || itemsPerPage;
+    // how many items are actually on each page - get the smaller value of either the items per page or the total items minus the starting index for that page to get the remainder instead of using modulo
+    const itemsOnCurrentPage = Math.min(itemsPerPage, totalItems - startIndex)
 
     // boolean condition to check if the user can go to the next page or not, possibly use it for styling disabled state for next and back buttons - if the current page is < total pages, then we can else if the current paage is > 1 then we can go back
     const canNextPage = currentPage < totalPages;
