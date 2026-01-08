@@ -1,6 +1,13 @@
 import { useState } from "react"
 
 export default function PaginationDemo() {
+    // set up the items array with 100 items
+    const items: string[] = []
+
+    for (let i=1; i <= 100; i++){
+        items.push(`Item ${i}`);
+    }
+
     const [selectItemsPerPage, setSelectItemsPerPage] = useState(10);
 
     // handle changing select
