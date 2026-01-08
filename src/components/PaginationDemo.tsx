@@ -35,9 +35,12 @@ export default function PaginationDemo() {
                 </select>
             </div>
             {/* section with items */}
-            <div>
-
-            </div>
+            {/* slice to get the items to display based on strt and end index from the items array, then map to add them to the list in a grid format*/}
+            <ol className="grid grid-cols-5 gap-2">
+                {items.slice(pagination.startIndex, pagination.endIndex).map((item) => (
+                    <li>{item}</li>
+                ))}
+            </ol>
             {/* section with prev and next and items on that page  */}
             <div className="flex flex-row justify-between items-center gap-8">
                 {/* set up disabled state from the can prev or next boolean if it's false disable the button */}
