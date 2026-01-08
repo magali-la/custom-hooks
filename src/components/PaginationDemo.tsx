@@ -1,4 +1,5 @@
 import { useState } from "react"
+import usePagination from "../customhooks/usePagination";
 
 export default function PaginationDemo() {
     // set up the items array with 100 items
@@ -7,6 +8,7 @@ export default function PaginationDemo() {
     for (let i=1; i <= 100; i++){
         items.push(`Item ${i}`);
     }
+
 
     const [selectItemsPerPage, setSelectItemsPerPage] = useState(10);
 
@@ -17,10 +19,13 @@ export default function PaginationDemo() {
         setSelectItemsPerPage(numberChosen)
     }
 
+    // set up the pagination custom hook with arguments - amount of items, the user's selected items per page, the first page
+    const pagination = usePagination(items.length, selectItemsPerPage, 1);
+
     return (
         <div className="flex flex-col rounded-2xl w-fit h-fit px-10 py-8 bg-blue-50 border-2 border-blue-200">
             <h2 className="text-2xl">Pagination Demo</h2>
-            <h4 className="text-xl">Total items: </h4>
+            <h4 className="text-xl">Total items: {items.length} </h4>
             {/* select and total items */}
             <div className="flex flex-row gap-6">
                 <label htmlFor="itemsPerPage">Items per page:</label>
